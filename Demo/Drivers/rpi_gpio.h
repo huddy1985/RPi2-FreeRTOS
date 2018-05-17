@@ -60,7 +60,6 @@ void rpi_gpio_sel_fun(uint32_t pin, uint32_t func);
 
 /* Set GPIO output level */
 void rpi_gpio_set_val(uint32_t pin, uint32_t val);
-
 uint32_t rpi_gpio_get_val(uint32_t pin);
 
 void rpi_gpio_toggle(uint32_t pin);
@@ -70,6 +69,8 @@ void rpi_gpio_ev_clear_status(uint32_t pin);
 void rpi_gpio_ev_detect_enable(uint32_t pin, GPIO_EV_SEL_t events);
 void rpi_gpio_ev_detect_disable(uint32_t pin, GPIO_EV_SEL_t events);
 
+// gpio configure
+void rpi_gpio_set_conf(unsigned int pin, unsigned int pud);
 
 #define RPI_GPIO ((volatile RPI_GPIO_t *)RPI_GPIO_BASE)
 

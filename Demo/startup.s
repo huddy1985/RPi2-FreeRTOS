@@ -2,19 +2,19 @@
 .extern __bss_start
 .extern __bss_end
 .extern FreeRTOS_IRQ_Handler
-.extern FreeRTOS_SVC_Handler    
+.extern FreeRTOS_SVC_Handler
 .extern rpi_cpu_irq_disable
 .extern main
 	.section .init
 	.globl _start
-;; 
+;;
 _start:
 	;@ All the following instruction should be read as:
 	;@ Load the address at symbol into the program counter.
-	
+
 	ldr	pc,reset_handler		;@ 	Processor Reset handler 		-- we will have to force this on the raspi!
 	;@ Because this is the first instruction executed, of cause it causes an immediate branch into reset!
-	
+
 	ldr pc,undefined_handler	;@ 	Undefined instruction handler 	-- processors that don't have thumb can emulate thumb!
     ldr pc,swi_handler			;@ 	Software interrupt / TRAP (SVC) -- system SVC handler for switching to kernel mode.
     ldr pc,prefetch_handler		;@ 	Prefetch/abort handler.
@@ -97,8 +97,7 @@ zero_loop:
 	blt		zero_loop
 
 	bl 		rpi_cpu_irq_disable
-	
-	
+
 	;@ 	mov	sp,#0x1000000
 	b main									;@ We're ready?? Lets start main execution!
 	.section .text
@@ -117,7 +116,7 @@ unused:
 
 fiq:
 	b fiq
-	
+
 hang:
 	b hang
 

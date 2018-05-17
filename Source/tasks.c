@@ -673,13 +673,13 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB ) PRIVILEGED_FUNCTION;
 
 #if( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 
-	BaseType_t xTaskCreate(	TaskFunction_t pxTaskCode,
+BaseType_t xTaskCreate(	TaskFunction_t pxTaskCode,
 							const char * const pcName,
 							const uint16_t usStackDepth,
 							void * const pvParameters,
 							UBaseType_t uxPriority,
 							TaskHandle_t * const pxCreatedTask ) /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
-	{
+{
 	TCB_t *pxNewTCB;
 	BaseType_t xReturn;
 
@@ -1221,8 +1221,8 @@ static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )
 
 #if ( INCLUDE_vTaskDelay == 1 )
 
-	void vTaskDelay( const TickType_t xTicksToDelay )
-	{
+void vTaskDelay( const TickType_t xTicksToDelay )
+{
 	BaseType_t xAlreadyYielded = pdFALSE;
 
 		/* A delay time of zero just forces a reschedule. */

@@ -15,8 +15,8 @@
  */
 void vSetupTimerInterrupt( void )
 {
-uint32_t ulCompareMatch;
-extern void FreeRTOS_Tick_Handler( void );
+	uint32_t ulCompareMatch;
+	extern void FreeRTOS_Tick_Handler( void );
 	
 
 	/* Calculate the match value required for our wanted tick rate. */

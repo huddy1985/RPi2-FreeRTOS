@@ -250,7 +250,7 @@ static void prvTaskExitError( void )
 
 BaseType_t xPortStartScheduler( void )
 {
-uint32_t ulAPSR;
+	uint32_t ulAPSR;
 
 	/* Only continue if the CPU is not in User mode.  The CPU must be in a
 	Privileged mode for the scheduler to start. */
@@ -329,7 +329,7 @@ void vPortExitCritical( void )
 
 void FreeRTOS_Tick_Handler( void )
 {
-uint32_t ulInterruptStatus;
+	uint32_t ulInterruptStatus;
 
 	ulInterruptStatus = portSET_INTERRUPT_MASK_FROM_ISR();
 

@@ -1,10 +1,15 @@
 #include <FreeRTOS.h>
 #include <task.h>
+#include <string.h>
 
 #include "Drivers/rpi_gpio.h"
 #include "Drivers/rpi_irq.h"
+#include "Drivers/rpi_mini_uart.h"
+#include "Drivers/rpi_interrupt.h"
 
 const TickType_t xDelay = 500 * portTICK_PERIOD_MS;
+
+char sz[4] = {'A', 'a', '\r', '\n'};
 
 void task1(void *pParam) {
 	int i = 0;
@@ -13,6 +18,7 @@ void task1(void *pParam) {
 		rpi_gpio_set_val(47, 1);
 		rpi_gpio_set_val(35, 0);
 		vTaskDelay(xDelay);
+
 	}
 }
 
@@ -24,6 +30,7 @@ void task2(void *pParam) {
 		rpi_gpio_set_val(47, 0);
 		rpi_gpio_set_val(35, 1);
 		vTaskDelay(xDelay/2);
+		// hexstring('c');
 	}
 }
 
@@ -35,8 +42,10 @@ void task2(void *pParam) {
  *	-- the same prototype as you'd see in a linux program.
  **/
 int main(void) {
+
 	rpi_cpu_irq_disable();
 
+	rpi_uart_init();
 	rpi_gpio_sel_fun(47, 1);			// RDY led
 	rpi_gpio_sel_fun(35, 1);			// RDY led
 
@@ -52,5 +61,40 @@ int main(void) {
 	while(1) {
 		;
 	}
+
+	long pid = xTaskCreate(task1, "LED_0", 128, NULL, 0, NULL);
+	xTaskCreate(task2, "LED_1", 128, NULL, 0, NULL);
+
+	vTaskStartScheduler();
+
+	/*
+	hexstring(pid);
+	EnableInterrupt(29);
+	__asm volatile ("nop");
+	__asm volatile ("push {r0}");
+	__asm volatile ("mov r0, #31");
+	__asm volatile ("msr spsr_cxsf, r0");
+	__asm volatile ("pop {r0}");
+
+
+	volatile unsigned int i = 0;
+
+	while (1) {
+		for (i = 0; i < 5000000; i++) {
+			;
+		}
+
+		rpi_gpio_set_val(47, 0);
+
+		hexstring(0x12345678);
+
+		for (i = 0; i < 5000000; i++) {
+		  ;
+		}
+		hexstring(0x87654321);
+	}
+
+	while (1);
+	*/
 }
 

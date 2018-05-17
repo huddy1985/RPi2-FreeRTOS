@@ -9,6 +9,8 @@
 
 #include "rpi_gpio.h"
 
+extern void dummy(unsigned int );
+
 void rpi_gpio_sel_fun(uint32_t pin, uint32_t func) {
     int offset = pin / 10;
     uint32_t val = RPI_GPIO->GPFSEL[offset];// Read in the original register value.
@@ -156,3 +158,22 @@ void rpi_gpio_ev_detect_disable(uint32_t pin, GPIO_EV_SEL_t events){
         RPI_GPIO->GPAFEN[offset] &= ~mask;
     }
 }
+
+void rpi_gpio_set_conf(unsigned int pin, unsigned int pud)
+{
+	unsigned int ra;
+	unsigned int off = pin/32;
+	//	unsigned int bit = pin % 32;
+	RPI_GPIO->GPPUD[0] = pud;
+
+	for (ra = 0; ra < 300; ra++)
+		dummy(ra);
+
+	RPI_GPIO->GPPUDCLK[off] = 1 << pin;
+
+	for (ra = 0; ra < 300; ra++)
+		dummy(ra);
+
+	RPI_GPIO->GPPUDCLK[off] = 0;
+}
+

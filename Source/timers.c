@@ -537,8 +537,8 @@ Timer_t * const pxTimer = ( Timer_t * ) listGET_OWNER_OF_HEAD_ENTRY( pxCurrentTi
 
 static void prvTimerTask( void *pvParameters )
 {
-TickType_t xNextExpireTime;
-BaseType_t xListWasEmpty;
+	TickType_t xNextExpireTime;
+	BaseType_t xListWasEmpty;
 
 	/* Just to avoid compiler warnings. */
 	( void ) pvParameters;
