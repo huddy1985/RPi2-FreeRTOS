@@ -36,7 +36,7 @@ SECTIONS {
 
 
 	/**
- 	 *	This is the main code section, it is essentially of unlimited size. (128Mb).
+	 *	This is the main code section, it is essentially of unlimited size. (128Mb).
 	 *
 	 **/
 	.text : {

@@ -12,6 +12,6 @@ int mini_uart_read(char *buf, int count);
 
 void rpi_uart_init(void);
 
-void hexstring ( unsigned int d );
+void hexstring (unsigned int d);
 
 #endif

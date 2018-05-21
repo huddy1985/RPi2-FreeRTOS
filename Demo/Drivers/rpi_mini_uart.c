@@ -69,8 +69,8 @@ extern void dummy ( unsigned int );
 
 #define AUX_ENABLES     (PBASE+0x00215004)
 #define AUX_MU_IO_REG   (PBASE+0x00215040)
-#define AUX_MU_IIR_REG  (PBASE+0x00215044)
-#define AUX_MU_IER_REG  (PBASE+0x00215048)
+#define AUX_MU_IIR_REG  (PBASE+0x00215048)
+#define AUX_MU_IER_REG  (PBASE+0x00215044)
 #define AUX_MU_LCR_REG  (PBASE+0x0021504C)
 #define AUX_MU_MCR_REG  (PBASE+0x00215050)
 #define AUX_MU_LSR_REG  (PBASE+0x00215054)
@@ -237,16 +237,16 @@ int mini_uart_read(char *buf, int count){
 }
 
 //------------------------------------------------------------------------
-void uart_putc ( unsigned int c )
+void uart_putc (unsigned int c)
 {
     while(1) {
-	  	if(GET32(AUX_MU_LSR_REG)&0x20)
-		  	break;
+		if(GET32(AUX_MU_LSR_REG)&0x20)
+			break;
     }
     PUT32(AUX_MU_IO_REG,c);
 }
 //------------------------------------------------------------------------
-void hexstrings ( unsigned int d )
+void hexstrings (unsigned int d)
 {
 
     unsigned int rb;
@@ -261,12 +261,13 @@ void hexstrings ( unsigned int d )
 		else
 			rc += 0x30;
 		uart_putc(rc);
-		if(rb==0) break;
+		if(rb == 0)
+			break;
 	}
     uart_putc(0x20);
 }
 //------------------------------------------------------------------------
-void hexstring ( unsigned int d )
+void hexstring (unsigned int d)
 {
     hexstrings(d);
     uart_putc(0x0D);

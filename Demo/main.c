@@ -15,8 +15,7 @@ void task1(void *pParam) {
 	int i = 0;
 	while(1) {
 		i++;
-		rpi_gpio_set_val(47, 1);
-		rpi_gpio_set_val(35, 0);
+		hexstring(0x01);
 		vTaskDelay(xDelay);
 
 	}
@@ -30,7 +29,7 @@ void task2(void *pParam) {
 		rpi_gpio_set_val(47, 0);
 		rpi_gpio_set_val(35, 1);
 		vTaskDelay(xDelay/2);
-		// hexstring('c');
+		hexstring(0x02);
 	}
 }
 
@@ -61,40 +60,5 @@ int main(void) {
 	while(1) {
 		;
 	}
-
-	long pid = xTaskCreate(task1, "LED_0", 128, NULL, 0, NULL);
-	xTaskCreate(task2, "LED_1", 128, NULL, 0, NULL);
-
-	vTaskStartScheduler();
-
-	/*
-	hexstring(pid);
-	EnableInterrupt(29);
-	__asm volatile ("nop");
-	__asm volatile ("push {r0}");
-	__asm volatile ("mov r0, #31");
-	__asm volatile ("msr spsr_cxsf, r0");
-	__asm volatile ("pop {r0}");
-
-
-	volatile unsigned int i = 0;
-
-	while (1) {
-		for (i = 0; i < 5000000; i++) {
-			;
-		}
-
-		rpi_gpio_set_val(47, 0);
-
-		hexstring(0x12345678);
-
-		for (i = 0; i < 5000000; i++) {
-		  ;
-		}
-		hexstring(0x87654321);
-	}
-
-	while (1);
-	*/
 }
 
